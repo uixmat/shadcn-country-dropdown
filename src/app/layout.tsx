@@ -38,11 +38,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex justify-center items-center h-full min-h-svh">
+          <div className="flex justify-start items-start h-full min-h-svh">
             <div className="flex justify-end fixed inset-x-0 top-0 w-full p-4 bg-background/80 backdrop-blur-md">
               <ModeToggle />
             </div>
-            {children}
+            <div className="container mx-auto pt-[68px]">{children}</div>
           </div>
         </ThemeProvider>
       </body>

@@ -47,7 +47,15 @@ interface CountryDropdownProps {
   defaultValue?: string;
   disabled?: boolean;
   placeholder?: string;
-  variant?: "primary" | "filter";
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+  slim?: boolean;
 }
 
 const CountryDropdownComponent = (
@@ -60,7 +68,9 @@ const CountryDropdownComponent = (
     defaultValue,
     disabled = false,
     placeholder = "Select a country",
-    variant = "primary",
+    variant = "default",
+    size = "default",
+    slim = false,
     ...props
   }: CountryDropdownProps,
   ref: React.ForwardedRef<HTMLButtonElement>
@@ -97,14 +107,15 @@ const CountryDropdownComponent = (
     [onChange]
   );
 
-  const triggerClasses = cn("justify-between", variant === "filter" && "w-24");
+  const triggerClasses = cn("justify-between", slim === true && "w-24");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           ref={ref}
-          size="lg"
+          size={size}
+          variant={variant}
           className={triggerClasses}
           disabled={disabled}
           {...props}
@@ -117,7 +128,7 @@ const CountryDropdownComponent = (
                   height={20}
                 />
               </div>
-              {variant === "primary" && (
+              {slim === false && (
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                   {selectedCountry.name}
                 </span>
@@ -125,7 +136,7 @@ const CountryDropdownComponent = (
             </div>
           ) : (
             <span className="text-muted/40">
-              {variant === "primary" ? placeholder : <Globe size={20} />}
+              {slim === false ? placeholder : <Globe size={20} />}
             </span>
           )}
           <ChevronDown size={16} />
