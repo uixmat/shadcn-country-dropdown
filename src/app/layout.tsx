@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -38,12 +39,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex justify-start items-start h-full min-h-svh">
+          <div className="flex justify-start items-start h-full min-h-svh px-4">
             <div className="flex justify-end fixed inset-x-0 top-0 w-full p-4 bg-background/80 backdrop-blur-md">
               <ModeToggle />
             </div>
-            <div className="container mx-auto pt-[68px]">{children}</div>
+            <div className="container mx-auto pt-[68px] pb-8 max-w-screen-md">
+              {children}
+            </div>
           </div>
+          <Toaster position="top-center" />
         </ThemeProvider>
       </body>
     </html>

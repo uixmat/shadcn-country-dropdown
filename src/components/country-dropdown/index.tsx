@@ -2,7 +2,6 @@
 import React, { useCallback, useState, forwardRef, useEffect } from "react";
 
 // shadcn
-import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -47,14 +46,6 @@ interface CountryDropdownProps {
   defaultValue?: string;
   disabled?: boolean;
   placeholder?: string;
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-  size?: "default" | "sm" | "lg" | "icon";
   slim?: boolean;
 }
 
@@ -68,8 +59,6 @@ const CountryDropdownComponent = (
     defaultValue,
     disabled = false,
     placeholder = "Select a country",
-    variant = "default",
-    size = "default",
     slim = false,
     ...props
   }: CountryDropdownProps,
@@ -107,45 +96,48 @@ const CountryDropdownComponent = (
     [onChange]
   );
 
-  const triggerClasses = cn("justify-between", slim === true && "w-24");
+  const triggerClasses = cn(
+    "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+    slim === true && "w-20"
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          ref={ref}
-          size={size}
-          variant={variant}
-          className={triggerClasses}
-          disabled={disabled}
-          {...props}
-        >
-          {selectedCountry ? (
-            <div className="flex items-center flex-grow w-0 gap-2 overflow-hidden">
-              <div className="inline-flex items-center justify-center w-5 h-5 overflow-hidden rounded-full [&>img]:object-cover [&>img]:border-2">
-                <CircleFlag
-                  countryCode={selectedCountry.alpha2.toLowerCase()}
-                  height={20}
-                />
-              </div>
-              {slim === false && (
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                  {selectedCountry.name}
-                </span>
-              )}
+      <PopoverTrigger
+        ref={ref}
+        className={triggerClasses}
+        disabled={disabled}
+        {...props}
+      >
+        {selectedCountry ? (
+          <div className="flex items-center flex-grow w-0 gap-2 overflow-hidden">
+            <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
+              <CircleFlag
+                countryCode={selectedCountry.alpha2.toLowerCase()}
+                height={20}
+              />
             </div>
-          ) : (
-            <span className="text-muted/40">
-              {slim === false ? placeholder : <Globe size={20} />}
-            </span>
-          )}
-          <ChevronDown size={16} />
-        </Button>
+            {slim === false && (
+              <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                {selectedCountry.name}
+              </span>
+            )}
+          </div>
+        ) : (
+          <span>
+            {slim === false ? (
+              placeholder || setSelectedCountry.name
+            ) : (
+              <Globe size={20} />
+            )}
+          </span>
+        )}
+        <ChevronDown size={16} />
       </PopoverTrigger>
       <PopoverContent
         collisionPadding={10}
         side="bottom"
-        className="min-w-[--radix-popper-anchor-width]"
+        className="min-w-[--radix-popper-anchor-width] p-0"
       >
         <Command className="w-full max-h-[200px] sm:max-h-[270px]">
           <CommandList>
