@@ -13,6 +13,7 @@ import { ExampleSlim } from "@/components/country-dropdown/example-slim";
 import { Preview } from "@/components/preview";
 import { Code } from "@/components/code";
 
+import { component } from "@/lib/code/component";
 import { installation } from "@/lib/code/installtion";
 import { example } from "@/lib/code/example";
 import { exampleForm } from "@/lib/code/example-form";
@@ -22,8 +23,17 @@ export default function Home() {
   return (
     <div className="grid grid-cols-1 gap-6">
       <div className="space-y-2">
-        <h1>Country Dropdown</h1>
-        <p>A dropdown component for selecting a country.</p>
+        <h1>
+          A{" "}
+          <a
+            href="https://ui.shadcn.com/docs/components/select"
+            target="_blank"
+          >
+            shadcn/ui
+          </a>{" "}
+          Country Dropdown
+        </h1>
+        <p>An ISO 3166 compliant dropdown component for selecting a country.</p>
       </div>
 
       <Tabs defaultValue="preview" className="w-full">
@@ -127,10 +137,17 @@ export default function Home() {
         </p>
         <Code code={installation} lang="bash" />
         <p>
-          Copy the component to <code>components/ui/country-dropdown.tsx</code>.
+          Copy the component below to{" "}
+          <code>components/ui/country-dropdown.tsx</code>.
         </p>
+        <Code code={component} />
         <Button asChild>
-          <a href="https://github.com/uixmat">CountryDropdown component</a>
+          <a
+            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/country-dropdown/index.tsx"
+            target="_blank"
+          >
+            View on Github
+          </a>
         </Button>
       </div>
 
