@@ -53,8 +53,7 @@ interface CountryDropdownProps {
 const CountryDropdownComponent = (
   {
     options = countries.all.filter(
-      // Todo: fix
-      (country: any) =>
+      (country: Country) =>
         country.emoji && country.status !== "deleted" && country.ioc !== "PRK"
     ),
     onChange,
@@ -112,20 +111,20 @@ const CountryDropdownComponent = (
         >
           {selectedCountry ? (
             <div className="flex items-center flex-grow w-0 gap-2 overflow-hidden">
-              <div className="w-5 h-5 overflow-hidden rounded-full">
+              <div className="inline-flex items-center justify-center w-5 h-5 overflow-hidden rounded-full [&>img]:object-cover [&>img]:border-2">
                 <CircleFlag
                   countryCode={selectedCountry.alpha2.toLowerCase()}
                   height={20}
                 />
               </div>
               {variant === "primary" && (
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap text-[13px]">
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                   {selectedCountry.name}
                 </span>
               )}
             </div>
           ) : (
-            <span className="text-muted/40 text-[13px]">
+            <span className="text-muted/40">
               {variant === "primary" ? placeholder : <Globe size={20} />}
             </span>
           )}
@@ -135,7 +134,7 @@ const CountryDropdownComponent = (
       <PopoverContent
         collisionPadding={10}
         side="bottom"
-        className="w-[--radix-popper-anchor-width]"
+        className="min-w-[--radix-popper-anchor-width]"
       >
         <Command className="w-full max-h-[200px] sm:max-h-[270px]">
           <CommandList>
@@ -151,7 +150,7 @@ const CountryDropdownComponent = (
                     onSelect={() => handleSelect(option)}
                   >
                     <div className="flex flex-grow w-0 space-x-2 overflow-hidden">
-                      <div className="w-5 h-5 overflow-hidden rounded-full">
+                      <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
                         <CircleFlag
                           countryCode={option.alpha2.toLowerCase()}
                           height={20}
