@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 
 // assets
-import { ChevronDown, CheckIcon, Globe, X } from "lucide-react";
+import { ChevronDown, CheckIcon, Globe } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
 
 // data
