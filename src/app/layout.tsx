@@ -42,7 +42,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex justify-start items-start h-full min-h-svh px-4">
-            <div className="flex justify-end fixed inset-x-0 top-0 w-full p-4 bg-background/80 backdrop-blur-md">
+            <div className="flex justify-end fixed inset-x-0 top-0 w-full p-4 bg-background/80 backdrop-blur-md z-10">
               <ModeToggle />
             </div>
             <div className="container mx-auto pt-[68px] pb-8 max-w-screen-md">
