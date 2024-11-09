@@ -74,7 +74,7 @@ export const ExampleMulti = () => {
       </Form>
 
       {selectedCountries.length > 0 && (
-        <div className="w-full bg-border rounded-md p-4 text-sm ">
+        <div className="w-full bg-border rounded-md p-4 text-sm max-w-full overflow-x-auto">
           <pre>{JSON.stringify(selectedCountries, null, 2)}</pre>
         </div>
       )}
