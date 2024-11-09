@@ -45,7 +45,7 @@ export default function Home() {
         </div>
         <TabsContent value="preview">
           <Preview>
-            <Card className="min-w-80">
+            <Card className="min-w-80 border-none shadow-none">
               <CardHeader>
                 <CardTitle>Country Dropdown</CardTitle>
                 <CardDescription>
@@ -183,7 +183,7 @@ export default function Home() {
           </div>
           <TabsContent value="preview">
             <Preview>
-              <Card className="min-w-80">
+              <Card className="min-w-80 border-none shadow-none">
                 <CardHeader>
                   <CardTitle>Country Dropdown</CardTitle>
                   <CardDescription>
