@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { Example } from "@/components/country-dropdown/example";
 import { ExampleSlim } from "@/components/country-dropdown/example-slim";
+import { ExampleMulti } from "@/components/country-dropdown/example-multi";
 import { Preview } from "@/components/preview";
 import { Code } from "@/components/code";
 
@@ -18,6 +19,7 @@ import { installation } from "@/lib/code/installtion";
 import { example } from "@/lib/code/example";
 import { exampleForm } from "@/lib/code/example-form";
 import { exampleSlim } from "@/lib/code/example-slim";
+import { exampleMulti } from "@/lib/code/example-multi";
 
 export default function Home() {
   return (
@@ -170,6 +172,24 @@ export default function Home() {
           </TabsContent>
           <TabsContent value="code">
             <Code code={exampleSlim} />
+          </TabsContent>
+        </Tabs>
+
+        <h3>Multiple</h3>
+        <Tabs defaultValue="preview" className="w-full">
+          <div className="flex items-center justify-between pb-3">
+            <TabsList>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="code">Code</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="preview">
+            <Preview>
+              <ExampleMulti />
+            </Preview>
+          </TabsContent>
+          <TabsContent value="code">
+            <Code code={exampleMulti} />
           </TabsContent>
         </Tabs>
 

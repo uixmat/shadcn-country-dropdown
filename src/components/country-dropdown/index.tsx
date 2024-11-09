@@ -20,14 +20,14 @@ import {
 import { cn } from "@/lib/utils";
 
 // assets
-import { ChevronDown, CheckIcon, Globe } from "lucide-react";
+import { ChevronDown, CheckIcon, Globe, X } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
 
 // data
 import { countries } from "country-data-list";
 
-// Country interface
-export interface Country {
+// Change interface to type and update for multiple selection
+export type Country = {
   alpha2: string;
   alpha3: string;
   countryCallingCodes: string[];
@@ -37,17 +37,30 @@ export interface Country {
   languages: string[];
   name: string;
   status: string;
-}
+};
 
-// Dropdown props
-interface CountryDropdownProps {
+type BaseCountryDropdownProps = {
   options?: Country[];
-  onChange?: (country: Country) => void;
-  defaultValue?: string;
   disabled?: boolean;
   placeholder?: string;
   slim?: boolean;
-}
+};
+
+type SingleCountryDropdownProps = BaseCountryDropdownProps & {
+  multiple?: false;
+  onChange?: (country: Country) => void;
+  defaultValue?: string;
+};
+
+type MultipleCountryDropdownProps = BaseCountryDropdownProps & {
+  multiple: true;
+  onChange: (countries: Country[]) => void;
+  defaultValue?: string[];
+};
+
+type CountryDropdownProps =
+  | SingleCountryDropdownProps
+  | MultipleCountryDropdownProps;
 
 const CountryDropdownComponent = (
   {
@@ -60,40 +73,67 @@ const CountryDropdownComponent = (
     disabled = false,
     placeholder = "Select a country",
     slim = false,
+    multiple = false,
     ...props
   }: CountryDropdownProps,
   ref: React.ForwardedRef<HTMLButtonElement>
 ) => {
   const [open, setOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(
-    undefined
-  );
+  const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
 
   useEffect(() => {
-    if (defaultValue) {
-      const initialCountry = options.find(
-        (country) => country.alpha3 === defaultValue
-      );
-      if (initialCountry) {
-        setSelectedCountry(initialCountry);
-      } else {
-        // Reset selected country if defaultValue is not found
-        setSelectedCountry(undefined);
+    // Skip if no defaultValue
+    if (!defaultValue) {
+      if (selectedCountries.length > 0) {
+        setSelectedCountries([]);
       }
-    } else {
-      // Reset selected country if defaultValue is undefined or null
-      setSelectedCountry(undefined);
+      return;
     }
-  }, [defaultValue, options]);
+
+    // For multiple selection
+    if (multiple && Array.isArray(defaultValue)) {
+      const currentValues = selectedCountries.map((c) => c.alpha3);
+      const hasChanges =
+        defaultValue.length !== currentValues.length ||
+        !defaultValue.every((v) => currentValues.includes(v));
+
+      if (hasChanges) {
+        const initialCountries = options.filter((country) =>
+          defaultValue.includes(country.alpha3)
+        );
+        setSelectedCountries(initialCountries);
+      }
+    }
+    // For single selection
+    else if (!multiple && typeof defaultValue === "string") {
+      const currentValue = selectedCountries[0]?.alpha3;
+      if (defaultValue !== currentValue) {
+        const initialCountry = options.find(
+          (country) => country.alpha3 === defaultValue
+        );
+        setSelectedCountries(initialCountry ? [initialCountry] : []);
+      }
+    }
+  }, [defaultValue, options, multiple]);
 
   const handleSelect = useCallback(
     (country: Country) => {
-      console.log("🌍 CountryDropdown value: ", country);
-      setSelectedCountry(country);
-      onChange?.(country);
-      setOpen(false);
+      if (multiple) {
+        const newSelection = selectedCountries.some(
+          (c) => c.alpha3 === country.alpha3
+        )
+          ? selectedCountries.filter((c) => c.alpha3 !== country.alpha3)
+          : [...selectedCountries, country];
+
+        setSelectedCountries(newSelection);
+        (onChange as MultipleCountryDropdownProps["onChange"])?.(newSelection);
+      } else {
+        setSelectedCountries([country]);
+        (onChange as SingleCountryDropdownProps["onChange"])?.(country);
+        setOpen(false);
+      }
     },
-    [onChange]
+    [onChange, multiple, selectedCountries]
   );
 
   const triggerClasses = cn(
@@ -109,24 +149,32 @@ const CountryDropdownComponent = (
         disabled={disabled}
         {...props}
       >
-        {selectedCountry ? (
+        {selectedCountries.length > 0 ? (
           <div className="flex items-center flex-grow w-0 gap-2 overflow-hidden">
-            <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
-              <CircleFlag
-                countryCode={selectedCountry.alpha2.toLowerCase()}
-                height={20}
-              />
-            </div>
-            {slim === false && (
+            {multiple ? (
               <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                {selectedCountry.name}
+                {selectedCountries.length} selected
               </span>
+            ) : (
+              <>
+                <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
+                  <CircleFlag
+                    countryCode={selectedCountries[0].alpha2.toLowerCase()}
+                    height={20}
+                  />
+                </div>
+                {slim === false && (
+                  <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    {selectedCountries[0].name}
+                  </span>
+                )}
+              </>
             )}
           </div>
         ) : (
           <span>
             {slim === false ? (
-              placeholder || setSelectedCountry.name
+              placeholder || selectedCountries[0]?.name
             ) : (
               <Globe size={20} />
             )}
@@ -166,7 +214,7 @@ const CountryDropdownComponent = (
                     <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4 shrink-0",
-                        option.name === selectedCountry?.name
+                        selectedCountries.some((c) => c.name === option.name)
                           ? "opacity-100"
                           : "opacity-0"
                       )}

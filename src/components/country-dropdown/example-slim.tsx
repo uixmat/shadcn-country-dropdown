@@ -28,7 +28,7 @@ export const ExampleSlim = () => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("HIYA", data);
+    console.log(data);
     toast.success(`${selectedCountry?.name} ${selectedCountry?.emoji} `);
   }
 
@@ -50,6 +50,7 @@ export const ExampleSlim = () => {
                   onChange={(country) => {
                     field.onChange(country.alpha3);
                     setSelectedCountry(country);
+                    toast(`Selected${country.name} ${country.emoji} `);
                   }}
                   slim
                 />
