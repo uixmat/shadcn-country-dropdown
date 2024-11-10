@@ -1,11 +1,4 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { Example } from "@/components/country-dropdown/example";
@@ -49,17 +42,7 @@ export default function Home() {
         </div>
         <TabsContent value="preview">
           <Preview>
-            <Card className="min-w-80 border-none shadow-none">
-              <CardHeader>
-                <CardTitle>Country Dropdown</CardTitle>
-                <CardDescription>
-                  A dropdown component for selecting a country.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Example />
-              </CardContent>
-            </Card>
+            <Example />
           </Preview>
         </TabsContent>
         <TabsContent value="code">
@@ -246,17 +229,7 @@ export default function Home() {
           </div>
           <TabsContent value="preview">
             <Preview>
-              <Card className="min-w-80 border-none shadow-none">
-                <CardHeader>
-                  <CardTitle>Country Dropdown</CardTitle>
-                  <CardDescription>
-                    A dropdown component for selecting a country.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Example />
-                </CardContent>
-              </Card>
+              <Example />
             </Preview>
           </TabsContent>
           <TabsContent value="code">
