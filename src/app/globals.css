@@ -63,11 +63,34 @@ body {
 }
 
 @layer base {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 5px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
   * {
     @apply border-border;
   }
+
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, .font-heading  {
@@ -90,7 +113,15 @@ body {
     @apply font-medium underline underline-offset-4;
   }
 
-  .shiki {
-    @apply bg-muted !important;
+  pre {
+    @apply text-sm overflow-auto py-4 max-h-[500px] leading-relaxed;
+  }
+   
+  pre [data-line] {
+    @apply px-4;
+  }
+
+  pre [data-highlighted-line] {
+    @apply bg-muted;
   }
 }

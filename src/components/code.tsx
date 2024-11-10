@@ -1,13 +1,31 @@
-import { highlightCode } from "@/lib/highlight-code";
+import * as React from "react";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypePrettyCode from "rehype-pretty-code";
 
-export async function Code({ code, lang }: { code: string; lang?: string }) {
-  const highlightedCode = await highlightCode(code, lang);
+export async function Code({ code }: { code: string }) {
+  const highlightedCode = await highlightCode(code);
   return (
     <section
-      className="max-h-96 overflow-clip overflow-y-scroll rounded-sm [&>pre]:p-4 [&>pre]:text-sm [&>pre]:rounded-none [&>pre]:leading-6 [&>pre]:bg-muted [&>pre]:overflow-scroll"
       dangerouslySetInnerHTML={{
         __html: highlightedCode,
       }}
     />
   );
+}
+
+async function highlightCode(code: string) {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypePrettyCode, {
+      keepBackground: false,
+      theme: "github-dark",
+    })
+    .use(rehypeStringify)
+    .process(code);
+
+  return String(file);
 }

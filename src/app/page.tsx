@@ -13,6 +13,8 @@ import { ExampleSlim } from "@/components/country-dropdown/example-slim";
 import { ExampleMulti } from "@/components/country-dropdown/example-multi";
 import { Preview } from "@/components/preview";
 import { Code } from "@/components/code";
+import { CodeBlock } from "@/components/code-block";
+import { CopyButton } from "@/components/copy-button";
 
 import { component } from "@/lib/code/component";
 import { installation } from "@/lib/code/installtion";
@@ -61,7 +63,10 @@ export default function Home() {
           </Preview>
         </TabsContent>
         <TabsContent value="code">
-          <Code code={example} />
+          <CodeBlock>
+            <Code code={example} />
+            <CopyButton value={example} />
+          </CodeBlock>
         </TabsContent>
       </Tabs>
 
@@ -137,12 +142,18 @@ export default function Home() {
           Install the <code>country-dropdown</code> package using your preferred
           package manager:
         </p>
-        <Code code={installation} lang="bash" />
+        <CodeBlock>
+          <Code code={installation} />
+          <CopyButton value={installation} />
+        </CodeBlock>
         <p>
           Copy the component below to{" "}
           <code>components/ui/country-dropdown.tsx</code>.
         </p>
-        <Code code={component} />
+        <CodeBlock>
+          <Code code={component} />
+          <CopyButton value={component} />
+        </CodeBlock>
         <Button asChild>
           <a
             href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/country-dropdown/index.tsx"
@@ -158,6 +169,19 @@ export default function Home() {
 
         <h3>Slim</h3>
 
+        <p>
+          A slim version makes it easy for you to have a shorthand version
+          displaying only the country flag. This could be used in conjunction
+          with{" "}
+          <a
+            href="https://nextjs.org/docs/pages/building-your-application/routing/internationalization"
+            target="_blank"
+          >
+            internationalisation
+          </a>
+          .
+        </p>
+
         <Tabs defaultValue="preview" className="w-full">
           <div className="flex items-center justify-between pb-3">
             <TabsList>
@@ -171,11 +195,20 @@ export default function Home() {
             </Preview>
           </TabsContent>
           <TabsContent value="code">
-            <Code code={exampleSlim} />
+            <CodeBlock>
+              <Code code={exampleSlim} />
+              <CopyButton value={exampleSlim} />
+            </CodeBlock>
           </TabsContent>
         </Tabs>
 
         <h3>Multiple</h3>
+        <p>
+          The multiple country selector is an additional option that returns a
+          string array. When using in conjunction with Zod schema make sure to
+          always use a string array; <code>z.array(z.string())</code>. Also
+          provide an empty array in the <code>defaultValue</code> prop and
+        </p>
         <Tabs defaultValue="preview" className="w-full">
           <div className="flex items-center justify-between pb-3">
             <TabsList>
@@ -189,11 +222,21 @@ export default function Home() {
             </Preview>
           </TabsContent>
           <TabsContent value="code">
-            <Code code={exampleMulti} />
+            <CodeBlock>
+              <Code code={exampleMulti} />
+              <CopyButton value={exampleMulti} />
+            </CodeBlock>
           </TabsContent>
         </Tabs>
 
         <h3>Form</h3>
+        <p>
+          Easily use the <code>CountryDropdown</code> with{" "}
+          <a href="https://ui.shadcn.com/" target="_blank">
+            shadcn/ui
+          </a>{" "}
+          forms.
+        </p>
         <Tabs defaultValue="preview" className="w-full">
           <div className="flex items-center justify-between pb-3">
             <TabsList>
@@ -217,7 +260,10 @@ export default function Home() {
             </Preview>
           </TabsContent>
           <TabsContent value="code">
-            <Code code={exampleForm} />
+            <CodeBlock>
+              <Code code={exampleForm} />
+              <CopyButton value={exampleForm} />
+            </CodeBlock>
           </TabsContent>
         </Tabs>
       </div>

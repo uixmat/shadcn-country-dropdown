@@ -1,4 +1,6 @@
-export const component = `"use client";
+export const component = `
+\`\`\`tsx
+"use client";
 import React, { useCallback, useState, forwardRef, useEffect } from "react";
 
 // shadcn
@@ -183,4 +185,6 @@ const CountryDropdownComponent = (
 
 CountryDropdownComponent.displayName = "CountryDropdownComponent";
 
-export const CountryDropdown = forwardRef(CountryDropdownComponent);`;
+export const CountryDropdown = forwardRef(CountryDropdownComponent);
+\`\`\`
+`;

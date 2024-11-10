@@ -1,4 +1,6 @@
-export const exampleForm = `"use client";
+export const exampleForm = `
+\`\`\`tsx
+"use client";
 import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,4 +66,5 @@ export const Example = () => {
     </Form>
   );
 };
+\`\`\`
 `;
