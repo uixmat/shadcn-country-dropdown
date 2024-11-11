@@ -117,7 +117,7 @@ export default function Home() {
         </CodeBlock>
         <Button asChild>
           <a
-            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/country-dropdown/index.tsx"
+            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/phone-input/index.tsx"
             target="_blank"
           >
             View on Github
