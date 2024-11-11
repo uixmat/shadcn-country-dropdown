@@ -61,7 +61,7 @@ export default function Home() {
       <div className="space-y-6 mt-12">
         <h2>Installation</h2>
         <p>
-          Install the <code>phone-input</code> dependencies using your preferred
+          Install the <code>PhoneInput</code> dependencies using your preferred
           package manager:
         </p>
         <CodeBlock>
@@ -69,8 +69,8 @@ export default function Home() {
           <CopyButton value={installation} />
         </CodeBlock>
         <p>
-          Copy the component below to{" "}
-          <code>components/ui/country-dropdown.tsx</code>.
+          Copy the component below to <code>components/ui/phone-input.tsx</code>
+          .
         </p>
         <CodeBlock>
           <Code code={component} />
