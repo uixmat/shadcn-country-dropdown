@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -43,7 +44,21 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex justify-start items-start h-full min-h-svh px-4">
-            <div className="flex justify-end fixed inset-x-0 top-0 w-full p-4 bg-background/80 backdrop-blur-md z-10">
+            <div className="flex justify-between items-center fixed inset-x-0 top-0 w-full p-4 bg-background/80 backdrop-blur-md z-10">
+              <nav className="flex items-center gap-4 text-sm font-semibold">
+                <Link
+                  href="/"
+                  className="hover:text-muted-foreground transition-all"
+                >
+                  Country dropdown
+                </Link>
+                <Link
+                  href="/phone-input"
+                  className="hover:text-muted-foreground transition-all"
+                >
+                  Phone input
+                </Link>
+              </nav>
               <ModeToggle />
             </div>
             <div className="container mx-auto pt-[68px] pb-8 max-w-screen-md">
