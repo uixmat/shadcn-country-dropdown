@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Footer } from "@/components/footer";
+import { Analytics } from "@vercel/analytics/react";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -51,6 +52,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <Toaster position="top-center" />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
