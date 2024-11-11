@@ -47,6 +47,9 @@ dependencies:
   country-data-list:
     specifier: ^1.3.4
     version: 1.3.4
+  libphonenumber-js:
+    specifier: ^1.11.14
+    version: 1.11.14
   lucide-react:
     specifier: ^0.454.0
     version: 0.454.0(react@19.0.0-rc-02c0e824-20241028)
@@ -3332,6 +3335,10 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
+
+  /libphonenumber-js@1.11.14:
+    resolution: {integrity: sha512-sexvAfwcW1Lqws4zFp8heAtAEXbEDnvkYCEGzvOoMgZR7JhXo/IkE9MkkGACgBed5fWqh3ShBGnJBdDnU9N8EQ==}
+    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}

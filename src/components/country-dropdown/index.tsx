@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 
 // assets
-import { ChevronDown, CheckIcon, Globe } from "lucide-react";
+import { ChevronDown, ChevronsUpDown, CheckIcon, Globe } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
 
 // data
@@ -44,6 +44,8 @@ type BaseCountryDropdownProps = {
   disabled?: boolean;
   placeholder?: string;
   slim?: boolean;
+  inline?: boolean;
+  className?: string;
 };
 
 type SingleCountryDropdownProps = BaseCountryDropdownProps & {
@@ -73,7 +75,9 @@ const CountryDropdownComponent = (
     disabled = false,
     placeholder = "Select a country",
     slim = false,
+    inline = false,
     multiple = false,
+    className,
     ...props
   }: CountryDropdownProps,
   ref: React.ForwardedRef<HTMLButtonElement>
@@ -137,8 +141,10 @@ const CountryDropdownComponent = (
   );
 
   const triggerClasses = cn(
-    "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-    slim === true && "w-20"
+    "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 hover:bg-secondary/80",
+    slim === true && "gap-1 w-min",
+    inline && "rounded-r-none border-r-0 gap-1 pr-1 w-min",
+    className
   );
 
   return (
@@ -150,20 +156,20 @@ const CountryDropdownComponent = (
         {...props}
       >
         {selectedCountries.length > 0 ? (
-          <div className="flex items-center flex-grow w-0 gap-2 overflow-hidden">
+          <div className="flex items-center flex-grow gap-2 overflow-hidden">
             {multiple ? (
               <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                 {selectedCountries.length} selected
               </span>
             ) : (
               <>
-                <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
+                <div className="inline-flex items-center justify-center w-4 h-4 shrink-0 overflow-hidden rounded-full">
                   <CircleFlag
                     countryCode={selectedCountries[0].alpha2.toLowerCase()}
-                    height={20}
+                    height={16}
                   />
                 </div>
-                {slim === false && (
+                {slim === false && !inline && (
                   <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                     {selectedCountries[0].name}
                   </span>
@@ -172,15 +178,16 @@ const CountryDropdownComponent = (
             )}
           </div>
         ) : (
-          <span>
-            {slim === false ? (
-              placeholder || selectedCountries[0]?.name
-            ) : (
-              <Globe size={20} />
-            )}
+          <span className="flex items-center gap-2">
+            {inline || slim ? <Globe size={16} /> : placeholder}
           </span>
         )}
-        <ChevronDown size={16} />
+
+        {!inline ? (
+          <ChevronDown size={16} />
+        ) : (
+          <ChevronsUpDown size={16} className="text-muted-foreground" />
+        )}
       </PopoverTrigger>
       <PopoverContent
         collisionPadding={10}
@@ -189,7 +196,9 @@ const CountryDropdownComponent = (
       >
         <Command className="w-full max-h-[200px] sm:max-h-[270px]">
           <CommandList>
-            <CommandInput placeholder="Search country..." />
+            <div className="sticky top-0 z-10 bg-popover">
+              <CommandInput placeholder="Search country..." />
+            </div>
             <CommandEmpty>No country found.</CommandEmpty>
             <CommandGroup>
               {options
@@ -200,7 +209,7 @@ const CountryDropdownComponent = (
                     key={key}
                     onSelect={() => handleSelect(option)}
                   >
-                    <div className="flex flex-grow w-0 space-x-2 overflow-hidden">
+                    <div className="flex flex-grow space-x-2 overflow-hidden">
                       <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
                         <CircleFlag
                           countryCode={option.alpha2.toLowerCase()}
