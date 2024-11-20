@@ -5,9 +5,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 
+import { Console } from "@/components/console";
+
 import { PhoneInput, phoneSchema, CountryData } from "@/components/phone-input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -41,8 +43,8 @@ export const Simple = () => {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <Card className="min-w-80 w-full max-w-96 mx-auto my-10 border-none shadow-none">
+    <>
+      <Card className="preview-card">
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -68,19 +70,21 @@ export const Simple = () => {
                 )}
               />
               <Button type="submit">Submit</Button>
-              <ul className="list-disc list-inside text-xs">
-                <li>
-                  <code>UK: 00447700000000</code>
-                </li>
-                <li>
-                  <code>NO: 004740000000</code>
-                </li>
-              </ul>
             </form>
           </Form>
         </CardContent>
+        <CardFooter>
+          <ul className="list-disc list-inside text-xs">
+            <li>
+              <code>UK: 00447700000000</code>
+            </li>
+            <li>
+              <code>NO: 004740000000</code>
+            </li>
+          </ul>
+        </CardFooter>
       </Card>
-      <div className="w-full border-t bg-zinc-900 text-sm">
+      <Console>
         {countryData ? (
           <div className="w-full">
             <pre className="p-4">
@@ -102,7 +106,7 @@ export const Simple = () => {
             </pre>
           </div>
         )}
-      </div>
-    </div>
+      </Console>
+    </>
   );
 };

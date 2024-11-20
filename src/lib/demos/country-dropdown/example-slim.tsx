@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 
+import { Console } from "@/components/console";
+
 import {
   Card,
   CardContent,
@@ -15,7 +17,7 @@ import {
 } from "@/components/ui/card";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 
-import { Country, CountryDropdown } from ".";
+import { Country, CountryDropdown } from "@/components/country-dropdown";
 
 const FormSchema = z.object({
   country: z.string({
@@ -40,8 +42,8 @@ export const ExampleSlim = () => {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <Card className="min-w-80 w-full max-w-96 mx-auto my-16 border-none shadow-none">
+    <>
+      <Card className="preview-card">
         <CardHeader>
           <CardTitle>Slim Dropdown</CardTitle>
           <CardDescription>
@@ -78,7 +80,7 @@ export const ExampleSlim = () => {
         </CardContent>
       </Card>
 
-      <div className="w-full border-t bg-zinc-900 text-sm">
+      <Console>
         {selectedCountry ? (
           <div className="w-full">
             <pre className="p-4">
@@ -93,7 +95,7 @@ export const ExampleSlim = () => {
             </pre>
           </div>
         )}
-      </div>
-    </div>
+      </Console>
+    </>
   );
 };

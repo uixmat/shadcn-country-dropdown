@@ -4,7 +4,7 @@ interface PreviewProps {
 
 export const Preview = ({ children }: PreviewProps) => {
   return (
-    <div className="preview flex min-h-[350px] w-full justify-center items-center border rounded-md">
+    <div className="preview flex flex-col justify-between min-h-[350px] w-full items-center border rounded-md">
       {children}
     </div>
   );

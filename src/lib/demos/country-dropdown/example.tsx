@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 
+import { Console } from "@/components/console";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,15 +25,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Country, CountryDropdown } from ".";
+import { Country, CountryDropdown } from "@/components/country-dropdown";
 
 const FormSchema = z.object({
-  country: z.array(z.string()).min(1, "Please select at least one country"),
+  country: z.string({
+    required_error: "Please select a country",
+  }),
 });
 
-export const ExampleMulti = () => {
-  const [selectedCountries, setSelectedCountries] = React.useState<Country[]>(
-    []
+type FormSchema = z.infer<typeof FormSchema>;
+
+export const Example = () => {
+  const [selectedCountry, setSelectedCountry] = React.useState<Country | null>(
+    null
   );
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -40,19 +46,17 @@ export const ExampleMulti = () => {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log("HIYA", data);
-    toast.success(
-      selectedCountries
-        .map((country) => `${country.name} ${country.emoji}`)
-        .join(", ")
-    );
+    toast.success(`${selectedCountry?.name} ${selectedCountry?.emoji} `);
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <Card className="min-w-80 w-full max-w-96 mx-auto my-10 border-none shadow-none">
+    <>
+      <Card className="preview-card">
         <CardHeader>
           <CardTitle>Country Dropdown</CardTitle>
-          <CardDescription>Try selecting multiple countries.</CardDescription>
+          <CardDescription>
+            A dropdown component for selecting a country.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -65,21 +69,16 @@ export const ExampleMulti = () => {
                 name="country"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Countries</FormLabel>
+                    <FormLabel>Your nationality</FormLabel>
                     <CountryDropdown
-                      placeholder="Select countries"
-                      defaultValue={field.value || []}
-                      onChange={(countries) => {
-                        field.onChange(
-                          countries.map((country) => country.alpha3)
-                        );
-                        setSelectedCountries(countries);
+                      placeholder="Select country"
+                      defaultValue={field.value}
+                      onChange={(country) => {
+                        field.onChange(country.alpha3);
+                        setSelectedCountry(country);
                       }}
-                      multiple={true}
                     />
-                    <FormDescription>
-                      Select countries you&apos;ve visited
-                    </FormDescription>
+                    <FormDescription>Where are you from?</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -90,11 +89,11 @@ export const ExampleMulti = () => {
         </CardContent>
       </Card>
 
-      <div className="w-full border-t bg-zinc-900 text-sm">
-        {selectedCountries.length > 0 ? (
+      <Console>
+        {selectedCountry ? (
           <div className="w-full">
             <pre className="p-4">
-              {JSON.stringify(selectedCountries, null, 2)}
+              {JSON.stringify(selectedCountry, null, 2)}
             </pre>
           </div>
         ) : (
@@ -105,7 +104,7 @@ export const ExampleMulti = () => {
             </pre>
           </div>
         )}
-      </div>
-    </div>
+      </Console>
+    </>
   );
 };

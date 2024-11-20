@@ -1,20 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { Example } from "@/components/country-dropdown/example";
-import { ExampleSlim } from "@/components/country-dropdown/example-slim";
-import { ExampleMulti } from "@/components/country-dropdown/example-multi";
+// Demos
+import { Example } from "@/lib/demos/country-dropdown/example";
+import { ExampleSlim } from "@/lib/demos/country-dropdown/example-slim";
+import { ExampleMulti } from "@/lib/demos/country-dropdown/example-multi";
+
+// UI
 import { Preview } from "@/components/preview";
 import { Code } from "@/components/code";
 import { CodeBlock } from "@/components/code-block";
 import { CopyButton } from "@/components/copy-button";
 
-import { component } from "@/lib/code/component";
-import { installation } from "@/lib/code/installtion";
-import { example } from "@/lib/code/example";
-import { exampleForm } from "@/lib/code/example-form";
-import { exampleSlim } from "@/lib/code/example-slim";
-import { exampleMulti } from "@/lib/code/example-multi";
+// Code
+import { exampleForm } from "@/lib/code/country-dropdown/example-form";
+import { exampleSlim } from "@/lib/code/country-dropdown/example-slim";
+import { exampleMulti } from "@/lib/code/country-dropdown/example-multi";
+import { component } from "@/lib/code/country-dropdown/component";
+import { example } from "@/lib/code/country-dropdown/example";
+import { installation } from "@/lib/code/country-dropdown/installation";
 
 export default function Home() {
   return (

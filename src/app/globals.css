@@ -101,7 +101,9 @@ body {
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, .font-heading  {
+  h1,
+  h2,
+  .font-heading {
     @apply scroll-m-20 text-3xl font-bold tracking-tight;
   }
 
@@ -124,7 +126,7 @@ body {
   pre {
     @apply text-sm overflow-auto py-4 max-h-[500px] leading-relaxed;
   }
-   
+
   pre [data-line] {
     @apply px-4;
   }
@@ -132,4 +134,8 @@ body {
   pre [data-highlighted-line] {
     @apply bg-muted;
   }
+}
+
+.preview-card {
+  @apply w-full max-w-[500px] mx-auto my-10 border-none shadow-none;
 }

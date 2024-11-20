@@ -3,18 +3,21 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// Demos
+import { Example } from "@/lib/demos/phone-input/index";
+import { Simple } from "@/lib/demos/phone-input/simple";
+import { InlineCountryDropdown } from "@/lib/demos/phone-input/inline-country-dropdown";
+
+// UI
 import { Preview } from "@/components/preview";
 import { Code } from "@/components/code";
 import { CodeBlock } from "@/components/code-block";
 import { CopyButton } from "@/components/copy-button";
 
-import { Example } from "./examples";
-import { Simple } from "./examples/simple";
-import { InlineCountryDropdown } from "./examples/inline-country-dropdown";
-
-import { installation } from "@/lib/code/installtion-phone";
-import { component } from "@/lib/code/component-phone";
-import { examplePhoneConnected } from "@/lib/code/example-phone-connected";
+// Code
+import { installation } from "@/lib/code/phone-input/installation";
+import { component } from "@/lib/code/phone-input/component";
+import { examplePhoneConnected } from "@/lib/code/phone-input/example-phone-connected";
 
 export const metadata: Metadata = {
   title: "A phone input for shadcn/ui",
