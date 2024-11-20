@@ -62,7 +62,7 @@ export const Example = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-6"
+              className="w-full space-y-4"
             >
               <FormField
                 control={form.control}
