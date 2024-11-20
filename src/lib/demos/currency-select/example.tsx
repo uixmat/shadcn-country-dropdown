@@ -67,8 +67,7 @@ export const Example = () => {
                         onCurrencySelect={handleCurrencySelect}
                         placeholder="Currency"
                         disabled={false}
-                        currencies="invoicing"
-                        // variant="small"
+                        currencies="custom"
                         {...field}
                       />
                     </FormControl>

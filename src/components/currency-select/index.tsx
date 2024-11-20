@@ -57,7 +57,7 @@ const CurrencySelect = React.forwardRef<HTMLButtonElement, CurrencySelectProps>(
       onCurrencySelect,
       name,
       placeholder = "Select currency",
-      currencies = "withdrawal",
+      currencies = "all",
       variant = "default",
       valid = true,
       ...props

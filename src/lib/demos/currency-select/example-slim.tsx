@@ -76,7 +76,6 @@ export const ExampleSlim = () => {
                           onCurrencySelect={handleCurrencySelect}
                           placeholder="Currency"
                           disabled={false}
-                          currencies="invoicing"
                           variant="small"
                           {...field}
                         />
