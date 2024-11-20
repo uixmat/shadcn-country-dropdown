@@ -97,6 +97,23 @@ export default function Home() {
           </a>{" "}
           country codes.
         </p>
+
+        <h3>Currencies</h3>
+        <p>
+          My component imports a set of constants, <code>customCurrencies</code>
+          and <code>allCurrencies</code>. The <code>customCurrencies</code>{" "}
+          array include only countries i want to show in the dropdown. The{" "}
+          <code>allCurrencies</code> array include all countries except the ones
+          in <code>customCurrencies</code> array.
+        </p>
+        <Button asChild>
+          <a
+            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/lib/constants/currencies.tsx"
+            target="_blank"
+          >
+            View on Github
+          </a>
+        </Button>
       </div>
 
       <div className="space-y-6 mt-12">
@@ -119,7 +136,7 @@ export default function Home() {
         </CodeBlock>
         <Button asChild>
           <a
-            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/country-dropdown/index.tsx"
+            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/currency-select/index.tsx"
             target="_blank"
           >
             View on Github
