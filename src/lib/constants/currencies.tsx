@@ -1,6 +1,6 @@
 /**
  * New currencies data ISO-4217 from https://en.wikipedia.org/wiki/ISO_4217
- * Used in new <CurrencyDropdown /> component (Oct 2024)
+ * Used in new <CurrencySelect /> component (Nov 2024)
  * adheres to package country-data-list
  */
 
