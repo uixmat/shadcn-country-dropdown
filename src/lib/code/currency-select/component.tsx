@@ -1,12 +1,5 @@
-/**
- *  Currencies data returns compliant https://en.wikipedia.org/wiki/ISO_4217
- *  returns @object
- *  code: @string ISO_4217
- *  decimals: @number
- *  name: @string
- *  number: @string
- *  symbol: @string
- */
+export const component = `
+\`\`\`tsx
 import React from "react";
 
 import { cn } from "@/lib/utils";
@@ -71,7 +64,6 @@ const CurrencySelect = React.forwardRef<HTMLButtonElement, CurrencySelectProps>(
       const currencyMap = new Map<string, Currency>();
 
       AllCurrencies.all.forEach((currency: Currency) => {
-        // Check if the currency has all required properties
         if (currency.code && currency.name && currency.symbol) {
           let shouldInclude = false;
 
@@ -176,3 +168,5 @@ const CurrencySelect = React.forwardRef<HTMLButtonElement, CurrencySelectProps>(
 CurrencySelect.displayName = "CurrencySelect";
 
 export { CurrencySelect };
+\`\`\`
+`;

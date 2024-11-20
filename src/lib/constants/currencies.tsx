@@ -55,7 +55,7 @@ export const allCurrencies = [
 ];
 
 // Currencies to include in the dropdown
-export const invoicingCurrencies = [
+export const customCurrencies = [
   "DKK",
   "SEK",
   "NOK",
@@ -65,33 +65,4 @@ export const invoicingCurrencies = [
   "GBP",
   "AUD",
   "NZD",
-];
-
-// Currencies to include in the dropdown
-export const withdrawalCurrencies = [
-  "USD",
-  "AED",
-  "AUD",
-  "BGN",
-  "BRL",
-  "CAD",
-  "CHF",
-  "CZK",
-  "COP",
-  "DKK",
-  "EUR",
-  "GBP",
-  "HKD",
-  "HUF",
-  // "ISK",
-  "JPY",
-  "MXN",
-  "MYR",
-  "NOK",
-  "NZD",
-  "PLN",
-  "RON",
-  "SEK",
-  "SGD",
-  "THB",
 ];
