@@ -2,7 +2,6 @@
 
 import React, { useState, useRef } from "react";
 
-// import * as Portal from "@radix-ui/react-portal";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -23,6 +22,7 @@ interface SelectPillsProps {
   defaultValue?: string[];
   value?: string[];
   onValueChange?: (selectedValues: string[]) => void;
+  placeholder?: string;
 }
 
 export const SelectPills: React.FC<SelectPillsProps> = ({
@@ -30,9 +30,10 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
   defaultValue = [],
   value,
   onValueChange,
+  placeholder = "Type to search...",
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [selectedColors, setSelectedColors] = useState<string[]>(
+  const [selectedPills, setSelectedPills] = useState<string[]>(
     value || defaultValue
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -43,7 +44,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
   const filteredItems = data.filter(
     (item) =>
       item.name.toLowerCase().includes(inputValue.toLowerCase()) &&
-      !selectedColors.includes(item.name)
+      !selectedPills.includes(item.name)
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +56,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
     const hasUnselectedMatches = data.some(
       (item) =>
         item.name.toLowerCase().includes(newValue.toLowerCase()) &&
-        !(value || selectedColors).includes(item.name)
+        !(value || selectedPills).includes(item.name)
     );
 
     setIsOpen(hasUnselectedMatches);
@@ -127,23 +128,23 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
   };
 
   const handleItemSelect = (item: DataItem) => {
-    const newSelectedColors = [...selectedColors, item.name];
-    setSelectedColors(newSelectedColors);
+    const newSelectedPills = [...selectedPills, item.name];
+    setSelectedPills(newSelectedPills);
     setInputValue("");
     setIsOpen(false);
     setHighlightedIndex(-1);
     if (onValueChange) {
-      onValueChange(newSelectedColors);
+      onValueChange(newSelectedPills);
     }
   };
 
-  const handleColorRemove = (colorToRemove: string) => {
-    const newSelectedColors = selectedColors.filter(
-      (color) => color !== colorToRemove
+  const handlePillRemove = (pillToRemove: string) => {
+    const newSelectedPills = selectedPills.filter(
+      (pill) => pill !== pillToRemove
     );
-    setSelectedColors(newSelectedColors);
+    setSelectedPills(newSelectedPills);
     if (onValueChange) {
-      onValueChange(newSelectedColors);
+      onValueChange(newSelectedPills);
     }
   };
 
@@ -160,14 +161,14 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
   return (
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <div className="flex flex-wrap gap-2 min-h-12">
-        {(value || selectedColors).map((color) => (
+        {(value || selectedPills).map((pill) => (
           <span
-            key={color}
+            key={pill}
             className="flex items-center gap-1 px-2 py-1 text-sm bg-gray-100 rounded-full"
           >
-            {color}
+            {pill}
             <button
-              onClick={() => handleColorRemove(color)}
+              onClick={() => handlePillRemove(pill)}
               className="p-0.5 hover:bg-gray-200 rounded-full"
             >
               <X size={14} />
@@ -181,7 +182,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            placeholder="Type a name..."
+            placeholder={placeholder}
           />
         </PopoverAnchor>
       </div>
@@ -203,7 +204,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
         <div
           ref={radioGroupRef}
           role="radiogroup"
-          aria-label="Color options"
+          aria-label="Pill options"
           onKeyDown={(e) => handleRadioKeyDown(e, highlightedIndex)}
         >
           {filteredItems.map((item, index) => (
@@ -215,22 +216,17 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
             >
               <input
                 type="radio"
-                id={`color-${item.name}`}
-                name="color-selection"
+                id={`pill-${item.name}`}
+                name="pill-selection"
                 value={item.name}
                 className="sr-only"
                 checked={highlightedIndex === index}
                 onChange={() => handleItemSelect(item)}
               />
               <label
-                htmlFor={`color-${item.name}`}
+                htmlFor={`pill-${item.name}`}
                 className="flex items-center gap-2 w-full cursor-pointer"
               >
-                <div
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: item.name }}
-                  aria-hidden="true"
-                />
                 <span>{item.name}</span>
               </label>
             </div>
