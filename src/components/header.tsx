@@ -43,6 +43,15 @@ export function Header() {
         >
           Phone input
         </Link>
+        <Link
+          href="/select-pills"
+          className={cn(
+            "hover:text-muted-foreground transition-all",
+            pathname === "/select-pills" && "text-primary"
+          )}
+        >
+          Select Pills
+        </Link>
       </nav>
       <ModeToggle />
     </div>
