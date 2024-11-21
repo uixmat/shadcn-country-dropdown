@@ -49,7 +49,8 @@ export const SelectPillsDemo = () => {
         <CardHeader>
           <CardTitle>Select Pills</CardTitle>
           <CardDescription>
-            Simple autocomplete search with multiple select pills.
+            Simple autocomplete search with multiple select pills and{" "}
+            <code>defaultValue</code>.
           </CardDescription>
         </CardHeader>
         <CardContent>

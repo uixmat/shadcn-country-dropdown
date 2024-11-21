@@ -73,7 +73,8 @@ export const PillsFormDemo = () => {
         <CardHeader>
           <CardTitle>Select Pills Form</CardTitle>
           <CardDescription>
-            Form validation with multiple select pills.
+            Form validation with multiple select pills and{" "}
+            <code>defaultValue</code>.
           </CardDescription>
         </CardHeader>
         <CardContent>
