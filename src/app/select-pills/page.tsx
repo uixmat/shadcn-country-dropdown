@@ -93,7 +93,7 @@ export default function SelectPillsPage() {
         </CodeBlock>
         <Button asChild>
           <a
-            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/currency-select/index.tsx"
+            href="https://github.com/uixmat/shadcn-country-dropdown/blob/main/src/components/select-pills/index.tsx"
             target="_blank"
           >
             View on Github
