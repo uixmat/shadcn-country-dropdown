@@ -2,6 +2,16 @@
 import React from "react";
 import { SelectPills } from "@/components/select-pills";
 
+import { Console } from "@/components/console";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+
 const tailwindColors = [
   { id: "1", name: "red-500" },
   { id: "2", name: "blue-500" },
@@ -34,15 +44,38 @@ export const SelectPillsDemo = () => {
     setSelectedValues(newValues);
   };
   return (
-    <div className="flex flex-col gap-4">
-      <SelectPills
-        data={tailwindColors}
-        value={selectedValues}
-        defaultValue={["red-500"]}
-        onValueChange={handleValueChange}
-      />
-
-      <pre>{JSON.stringify(selectedValues, null, 2)}</pre>
-    </div>
+    <>
+      <Card className="preview-card">
+        <CardHeader>
+          <CardTitle>Select Pills</CardTitle>
+          <CardDescription>
+            Simple autocomplete search with multiple select pills.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <SelectPills
+            data={tailwindColors}
+            value={selectedValues}
+            defaultValue={["red-500"]}
+            onValueChange={handleValueChange}
+            placeholder="Search colors eg. green-500"
+          />
+        </CardContent>
+      </Card>
+      <Console>
+        {selectedValues.length > 0 ? (
+          <div className="w-full">
+            <pre className="p-4">{JSON.stringify(selectedValues, null, 2)}</pre>
+          </div>
+        ) : (
+          <div className="flex items-center text-sm text-zinc-400 font-mono">
+            <pre className="p-4">
+              &gt;
+              <span className="animate-blink">_</span>
+            </pre>
+          </div>
+        )}
+      </Console>
+    </>
   );
 };

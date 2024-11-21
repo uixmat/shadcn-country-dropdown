@@ -2,6 +2,9 @@
 
 import React, { useState, useRef } from "react";
 
+import { cn } from "@/lib/utils";
+
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -31,6 +34,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
   value,
   onValueChange,
   placeholder = "Type to search...",
+  // ...props
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [selectedPills, setSelectedPills] = useState<string[]>(
@@ -94,22 +98,31 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
         e.preventDefault();
         if (index < filteredItems.length - 1) {
           setHighlightedIndex(index + 1);
-          const nextRadio = radioGroupRef.current?.querySelector(
-            `input[type="radio"]:nth-of-type(${index + 2})`
+          const nextItem = radioGroupRef.current?.querySelector(
+            `div:nth-child(${index + 2})`
           ) as HTMLElement;
-          nextRadio?.focus();
+          if (nextItem) {
+            nextItem.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
+          }
         }
         break;
       case "ArrowUp":
         e.preventDefault();
         if (index > 0) {
           setHighlightedIndex(index - 1);
-          const prevRadio = radioGroupRef.current?.querySelector(
-            `input[type="radio"]:nth-of-type(${index})`
+          const prevItem = radioGroupRef.current?.querySelector(
+            `div:nth-child(${index})`
           ) as HTMLElement;
-          prevRadio?.focus();
+          if (prevItem) {
+            prevItem.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
+          }
         } else {
-          // If at first item, return focus to input
           inputRef.current?.focus();
           setHighlightedIndex(-1);
         }
@@ -162,18 +175,20 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <div className="flex flex-wrap gap-2 min-h-12">
         {(value || selectedPills).map((pill) => (
-          <span
+          <Badge
             key={pill}
-            className="flex items-center gap-1 px-2 py-1 text-sm bg-gray-100 rounded-full"
+            variant="secondary"
+            onClick={() => handlePillRemove(pill)}
+            className="hover:cursor-pointer gap-1 group"
           >
             {pill}
             <button
               onClick={() => handlePillRemove(pill)}
-              className="p-0.5 hover:bg-gray-200 rounded-full"
+              className="appearance-none text-muted-foreground group-hover:text-foreground transition-colors"
             >
-              <X size={14} />
+              <X size={12} />
             </button>
-          </span>
+          </Badge>
         ))}
         <PopoverAnchor asChild>
           <Input
@@ -206,13 +221,15 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
           role="radiogroup"
           aria-label="Pill options"
           onKeyDown={(e) => handleRadioKeyDown(e, highlightedIndex)}
+          className="max-h-[200px] overflow-y-auto"
         >
           {filteredItems.map((item, index) => (
             <div
               key={item.id || item.value || item.name}
-              className={`flex items-center px-4 py-2 cursor-pointer ${
-                highlightedIndex === index ? "bg-gray-200" : "hover:bg-gray-100"
-              }`}
+              className={cn(
+                "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent/70 focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0",
+                highlightedIndex === index && "bg-accent"
+              )}
             >
               <input
                 type="radio"
@@ -225,9 +242,9 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
               />
               <label
                 htmlFor={`pill-${item.name}`}
-                className="flex items-center gap-2 w-full cursor-pointer"
+                className="flex items-center w-full cursor-pointer"
               >
-                <span>{item.name}</span>
+                {item.name}
               </label>
             </div>
           ))}
