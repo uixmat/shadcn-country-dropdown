@@ -27,9 +27,12 @@ export default function SelectPillsPage() {
           >
             shadcn/ui
           </a>{" "}
-          Multi-select with pills
+          autocomplete multi-select with pills.
         </h1>
-        <p>Description.</p>
+        <p>
+          An accessible autocomplete search with multiple select, displayed as
+          pills built for shadcn/ui.
+        </p>
       </div>
 
       <Tabs defaultValue="preview" className="w-full">
