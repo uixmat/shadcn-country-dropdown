@@ -1,3 +1,5 @@
+export const component = `
+\`\`\`tsx
 "use client";
 import React, { useState, useRef } from "react";
 
@@ -33,7 +35,6 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
   value,
   onValueChange,
   placeholder = "Type to search...",
-  // ...props
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [selectedPills, setSelectedPills] = useState<string[]>(
@@ -98,7 +99,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
         if (index < filteredItems.length - 1) {
           setHighlightedIndex(index + 1);
           const nextItem = radioGroupRef.current?.querySelector(
-            `div:nth-child(${index + 2})`
+            \`div:nth-child(\${index + 2})\`
           ) as HTMLElement;
           if (nextItem) {
             nextItem.scrollIntoView({
@@ -113,7 +114,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
         if (index > 0) {
           setHighlightedIndex(index - 1);
           const prevItem = radioGroupRef.current?.querySelector(
-            `div:nth-child(${index})`
+            \`div:nth-child(\${index})\`
           ) as HTMLElement;
           if (prevItem) {
             prevItem.scrollIntoView({
@@ -232,7 +233,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
             >
               <input
                 type="radio"
-                id={`pill-${item.name}`}
+                id={\`pill-\${item.name}\`}
                 name="pill-selection"
                 value={item.name}
                 className="sr-only"
@@ -240,7 +241,7 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
                 onChange={() => handleItemSelect(item)}
               />
               <label
-                htmlFor={`pill-${item.name}`}
+                htmlFor={\`pill-\${item.name}\`}
                 className="flex items-center w-full cursor-pointer"
               >
                 {item.name}
@@ -252,3 +253,6 @@ export const SelectPills: React.FC<SelectPillsProps> = ({
     </Popover>
   );
 };
+
+\`\`\`
+`;
